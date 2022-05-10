@@ -20,6 +20,7 @@ return new class extends Migration
             $table->double('total');
             $table->string('transaction_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

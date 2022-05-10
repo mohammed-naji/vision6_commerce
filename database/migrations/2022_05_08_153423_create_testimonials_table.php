@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('position');
             $table->string('image')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

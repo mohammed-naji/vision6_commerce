@@ -23,6 +23,7 @@ return new class extends Migration
             $table->enum('type', ['user', 'admin', 'super-admin', 'vendor'])->default('user');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

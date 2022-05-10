@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('image');
             $table->foreignId('parent_id')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

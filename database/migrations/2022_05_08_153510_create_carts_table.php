@@ -17,10 +17,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('product_id');
             $table->foreignId('user_id');
-            $table->foreignId('coupon_id')->nullable();
-            $table->foreignId('order_id')->nullable();
             $table->double('price');
+            $table->integer('quantity')->default(1);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

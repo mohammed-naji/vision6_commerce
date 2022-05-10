@@ -21,6 +21,7 @@ return new class extends Migration
             $table->double('discount');
             $table->timestamp('expire_date');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -17,9 +17,15 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->double('total');
+            $table->double('vat');
+            $table->foreignId('coupon_id')->nullable();
+            $table->double('coupon_value')->nullable();
+            $table->string('coupon_type')->nullable();
+            $table->double('final_total');
             $table->string('address');
             $table->enum('payment_status', ['processing','completed', 'canceled', 'refund'])->default('processing');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
