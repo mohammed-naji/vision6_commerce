@@ -9,5 +9,6 @@ return [
     'Products' => 'المنتجات',
     'All Products' => 'جميع المنتجات',
     'Profile' => 'الملف الشخصي',
-    'Logout' => 'تسجيل خروج'
+    'Logout' => 'تسجيل خروج',
+    'Edit Category' => 'تعديل القسم'
 ];

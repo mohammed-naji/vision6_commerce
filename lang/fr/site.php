@@ -9,5 +9,6 @@ return [
     'Products' => 'Products',
     'All Products' => 'All Products',
     'Profile' => 'Profile',
-    'Logout' => 'Logout'
+    'Logout' => 'Logout',
+    'Edit Category' => 'Edit Category'
 ];

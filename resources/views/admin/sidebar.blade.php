@@ -31,8 +31,8 @@
         </a>
         <div id="collapseCategory" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="buttons.html">{{ __('site.All Categories') }}</a>
-                <a class="collapse-item" href="cards.html">{{ __('site.Add New') }}</a>
+                <a class="collapse-item" href="{{ route('admin.categories.index') }}">{{ __('site.All Categories') }}</a>
+                <a class="collapse-item" href="{{ route('admin.categories.create') }}">{{ __('site.Add New') }}</a>
             </div>
         </div>
     </li>
