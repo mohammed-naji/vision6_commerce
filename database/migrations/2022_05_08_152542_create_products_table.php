@@ -21,7 +21,7 @@ return new class extends Migration
             $table->double('price');
             $table->double('sale_price')->nullable();
             $table->integer('quantity');
-            $table->integer('views');
+            $table->integer('views')->default(0);
             $table->foreignId('category_id');
             $table->foreignId('user_id');
             $table->timestamps();

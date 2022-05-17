@@ -262,6 +262,14 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('adminassets/js/sb-admin-2.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.0.2/tinymce.min.js" integrity="sha512-Cwez4r594AFwCqWzXklkW90mGiJCKJBhcFb8GsWWtb0coKuR9uv1ozODWidI/8Lr9iKunYaXLPf6VJtL3rXzyQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        tinymce.init({
+            selector: '.tinyedit',
+            height: '400px'
+        });
+    </script>
 
     @yield('scripts')
 </body>

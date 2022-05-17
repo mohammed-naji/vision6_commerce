@@ -14,7 +14,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="{{ route('admin.index') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>{{ __('site.Dashboard') }}</span></a>
     </li>
@@ -24,29 +24,31 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCategory"
+        <a class="nav-link {{ str_contains(request()->url(), 'categories') ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapseCategory"
             aria-expanded="true" aria-controls="collapseCategory">
             <i class="fas fa-fw fa-cog"></i>
             <span>{{ __('site.Categories') }}</span>
         </a>
-        <div id="collapseCategory" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapseCategory" class="collapse {{ str_contains(request()->url(), 'categories') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ route('admin.categories.index') }}">{{ __('site.All Categories') }}</a>
-                <a class="collapse-item" href="{{ route('admin.categories.create') }}">{{ __('site.Add New') }}</a>
+                <a class="collapse-item {{ request()->routeIs('admin.categories.index') ? 'active' : '' }}" href="{{ route('admin.categories.index') }}">{{ __('site.All Categories') }}</a>
+                <a class="collapse-item {{ request()->routeIs('admin.categories.create') ? 'active' : '' }}" href="{{ route('admin.categories.create') }}">{{ __('site.Add New') }}</a>
+                <a class="collapse-item {{ request()->routeIs('admin.categories.trash') ? 'active' : '' }}" href="{{ route('admin.categories.trash') }}">Trash</a>
             </div>
         </div>
     </li>
 
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProduct"
+        <a class="nav-link {{ str_contains(request()->url(), 'products') ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapseProduct"
             aria-expanded="true" aria-controls="collapseProduct">
             <i class="fas fa-fw fa-cog"></i>
             <span>{{ __('site.Products') }}</span>
         </a>
-        <div id="collapseProduct" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapseProduct" class="collapse {{ str_contains(request()->url(), 'products') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="buttons.html">{{ __('site.All Products') }}</a>
-                <a class="collapse-item" href="cards.html">{{ __('site.Add New') }}</a>
+                <a class="collapse-item {{ request()->routeIs('admin.products.index') ? 'active' : '' }}" href="{{ route('admin.products.index') }}">{{ __('site.All Products') }}</a>
+                <a class="collapse-item {{ request()->routeIs('admin.products.create') ? 'active' : '' }}" href="{{ route('admin.products.create') }}">{{ __('site.Add New') }}</a>
+                <a class="collapse-item {{ request()->routeIs('admin.products.trash') ? 'active' : '' }}" href="{{ route('admin.products.trash') }}">Trash</a>
             </div>
         </div>
     </li>

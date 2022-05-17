@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
-class CategoryController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +18,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::orderByDesc('id')->paginate(10);
+        $products = Product::orderByDesc('id')->paginate(10);
 
-        return view('admin.categories.index', compact('categories'));
+        return view('admin.products.index', compact('products'));
     }
 
     /**
@@ -29,9 +31,9 @@ class CategoryController extends Controller
     public function create()
     {
         $categories = Category::select(['id', 'name'])->get();
-        $category = new Category();
+        $product = new Product();
 
-        return view('admin.categories.create', compact('categories', 'category'));
+        return view('admin.products.create', compact('categories', 'product'));
     }
 
     /**
@@ -46,30 +48,43 @@ class CategoryController extends Controller
             'name_en' => 'required|min:3',
             'name_ar' => 'required|min:3',
             'image' => 'required|image|mimes:png,jpg,jpeg,svg',
-            'parent_id' => 'nullable|exists:categories,id'
+            'description_en' => 'required',
+            'description_ar' => 'required',
+            'price' => 'required',
+            'quantity' => 'required',
+            'category_id' => 'required',
         ]);
 
-        // NEW IM 88.PNG
-        // 56464684646465496-new-im-88.png
+
         $image = $request->file('image');
         $new_img_name = rand().time().'-'.strtolower(str_replace(' ', '-', $image->getClientOriginalName()));
-        $image->move(public_path('uploads/images/categories'), $new_img_name);
+        $image->move(public_path('uploads/images/products'), $new_img_name);
 
         // $data = $request->all();
         // $data['image'] = $new_img_name;
 
-        // Category::create($data);
+        // Product::create($data);
         $name = [
             'en' => $request->name_en,
             'ar' => $request->name_ar
         ];
-        Category::create([
+
+        $description = [
+            'en' => $request->description_en,
+            'ar' => $request->description_ar
+        ];
+        Product::create([
             'name' => json_encode($name, JSON_UNESCAPED_UNICODE) ,
             'image' => $new_img_name,
-            'parent_id' => $request->parent_id,
+            'description' => json_encode($description, JSON_UNESCAPED_UNICODE) ,
+            'price' => $request->price,
+            'sale_price' => $request->sale_price,
+            'quantity' => $request->quantity,
+            'category_id' => $request->category_id,
+            'user_id' => Auth::id(),
         ]);
 
-        return redirect()->route('admin.categories.index')->with('msg', 'Category Created Successfully')->with('type', 'success');
+        return redirect()->route('admin.products.index')->with('msg', 'Product Created Successfully')->with('type', 'success');
     }
 
     /**
@@ -91,10 +106,10 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $categories = Category::select(['id', 'name'])->where('id', '<>', $id)->get();
-        $category = Category::findOrFail($id);
+        $categories = Product::select(['id', 'name'])->get();
+        $product = Product::findOrFail($id);
 
-        return view('admin.categories.edit', compact('categories', 'category'));
+        return view('admin.products.edit', compact('categories', 'product'));
     }
 
     /**
@@ -109,27 +124,27 @@ class CategoryController extends Controller
         $request->validate([
             'name' => 'required|min:3',
             'image' => 'nullable|image|mimes:png,jpg,jpeg,svg',
-            'parent_id' => 'nullable|exists:categories,id'
+            'parent_id' => 'nullable|exists:products,id'
         ]);
 
-        $category = Category::findOrFail($id);
+        $product = Product::findOrFail($id);
 
         // NEW IM 88.PNG
         // 56464684646465496-new-im-88.png
-        $new_img_name = $category->image;
+        $new_img_name = $product->image;
         if($request->hasFile('image')) {
-            $this->deleteImage($category->image);
+            $this->deleteImage($product->image);
             $image = $request->file('image');
             $new_img_name = rand().time().'-'.strtolower(str_replace(' ', '-', $image->getClientOriginalName()));
-            $image->move(public_path('uploads/images/categories'), $new_img_name);
+            $image->move(public_path('uploads/images/products'), $new_img_name);
         }
 
         $data = $request->all();
         $data['image'] = $new_img_name;
 
-        $category->update($data);
+        $product->update($data);
 
-        return redirect()->route('admin.categories.index')->with('msg', 'Category Updated Successfully')->with('type', 'info');
+        return redirect()->route('admin.products.index')->with('msg', 'Product Updated Successfully')->with('type', 'info');
     }
 
     /**
@@ -140,20 +155,20 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $category = Category::findOrFail($id);
+        $product = Product::findOrFail($id);
 
-        $this->deleteImage($category->image);
+        $this->deleteImage($product->image);
 
-        Category::where('parent_id', $category->id)->update(['parent_id' => null]);
+        Product::where('parent_id', $product->id)->update(['parent_id' => null]);
 
-        $category->delete();
+        $product->delete();
 
-        return redirect()->route('admin.categories.index')->with('msg', 'Category Deleted Successfully')->with('type', 'danger');
+        return redirect()->route('admin.products.index')->with('msg', 'Product Deleted Successfully')->with('type', 'danger');
     }
 
     private function deleteImage($src)
     {
-        File::delete(public_path('uploads/images/categories/'.$src));
+        File::delete(public_path('uploads/images/products/'.$src));
     }
 
     /**
@@ -163,19 +178,19 @@ class CategoryController extends Controller
      */
     public function trash()
     {
-        $categories = Category::onlyTrashed()->orderByDesc('id')->paginate(10);
-        return view('admin.categories.trash', compact('categories'));
+        $products = Product::onlyTrashed()->orderByDesc('id')->paginate(10);
+        return view('admin.products.trash', compact('products'));
     }
 
     public function restore($id)
     {
-        Category::withTrashed()->findOrFail($id)->restore();
+        Product::withTrashed()->findOrFail($id)->restore();
         return redirect()->back();
     }
 
     public function forcedelete($id)
     {
-        Category::withTrashed()->findOrFail($id)->forceDelete();
+        Product::withTrashed()->findOrFail($id)->forceDelete();
         return redirect()->back();
     }
 

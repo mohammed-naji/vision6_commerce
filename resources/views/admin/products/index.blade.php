@@ -5,8 +5,8 @@
 @section('content')
     <!-- Page Heading -->
     <div class="d-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 text-gray-800">{{ __('site.All Categories') }}</h1>
-        <a class="btn btn-outline-dark" href="{{ route('admin.categories.create') }}">Add New Category</a>
+        <h1 class="h3 text-gray-800">{{ __('site.All Products') }}</h1>
+        <a class="btn btn-outline-dark" href="{{ route('admin.products.create') }}">Add New Product</a>
     </div>
 
     @if (session('msg'))
@@ -31,26 +31,26 @@
             </tr>
         </thead>
         <tbody>
-            @forelse ($categories as $category)
+            @forelse ($products as $product)
                 <tr>
-                    <td>{{ $category->id }}</td>
-                    {{-- <td>{{ json_decode($category->name, true)[App::currentLocale()] }}</td> --}}
-                    <td>{{ $category->trans_name }}</td>
+                    <td>{{ $product->id }}</td>
+                    {{-- <td>{{ json_decode($product->name, true)[App::currentLocale()] }}</td> --}}
+                    <td>{{ $product->trans_name }}</td>
                     <td>
                         @php
                             $src = 'https://via.placeholder.com/80';
-                            if(file_exists(public_path('uploads/images/categories/'.$category->image))){
-                                $src = asset('uploads/images/categories/'.$category->image);
+                            if(file_exists(public_path('uploads/images/products/'.$product->image))){
+                                $src = asset('uploads/images/products/'.$product->image);
                             }
                         @endphp
                         <img width="80" src="{{ $src }}" alt="">
                     </td>
-                    <td> {{ $category->parent->trans_name??'' }}</td>
-                    {{-- <td>{{ $category->created_at->format('d M, Y') }}</td> --}}
-                    <td>{{ $category->created_at->diffForHumans() }}</td>
+                    <td> {{ $product->parent->trans_name??'' }}</td>
+                    {{-- <td>{{ $product->created_at->format('d M, Y') }}</td> --}}
+                    <td>{{ $product->created_at->diffForHumans() }}</td>
                     <td>
-                        <a class="btn btn-sm btn-primary" href="{{ route('admin.categories.edit', $category->id) }}"><i class="fas fa-edit"></i></a>
-                        <form class="d-inline" action="{{ route('admin.categories.destroy', $category->id) }}" method="POST">
+                        <a class="btn btn-sm btn-primary" href="{{ route('admin.products.edit', $product->id) }}"><i class="fas fa-edit"></i></a>
+                        <form class="d-inline" action="{{ route('admin.products.destroy', $product->id) }}" method="POST">
                             @csrf
                             @method('delete')
                             <button class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')"><i class="fas fa-trash"></i></button>
@@ -66,5 +66,5 @@
         </tbody>
     </table>
 
-    {{ $categories->links() }}
+    {{ $products->links() }}
 @stop
