@@ -13,4 +13,22 @@ class Product extends Model
 
     protected $guarded = [];
 
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function getPriceAttribute($value)
+    {
+        if($this->sale_price) {
+            return $this->sale_price;
+        }
+
+        return $value;
+    }
+
+    public function setViewsAttribute() {
+        return $this->attributes['views'] = 100;
+    }
+
 }

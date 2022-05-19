@@ -25,7 +25,10 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Image</th>
-                <th>Parent</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Views</th>
+                <th>Category</th>
                 <th>Created At</th>
                 <th>Actions</th>
             </tr>
@@ -45,7 +48,11 @@
                         @endphp
                         <img width="80" src="{{ $src }}" alt="">
                     </td>
-                    <td> {{ $product->parent->trans_name??'' }}</td>
+                    {{-- <td> {{ $product->sale_price ? $product->sale_price : $product->price }}</td> --}}
+                    <td> {{ $product->price }}</td>
+                    <td> {{ $product->quantity }}</td>
+                    <td> {{ $product->views }}</td>
+                    <td> {{ $product->category->trans_name??'' }}</td>
                     {{-- <td>{{ $product->created_at->format('d M, Y') }}</td> --}}
                     <td>{{ $product->created_at->diffForHumans() }}</td>
                     <td>

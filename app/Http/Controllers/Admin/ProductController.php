@@ -44,17 +44,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name_en' => 'required|min:3',
-            'name_ar' => 'required|min:3',
-            'image' => 'required|image|mimes:png,jpg,jpeg,svg',
-            'description_en' => 'required',
-            'description_ar' => 'required',
-            'price' => 'required',
-            'quantity' => 'required',
-            'category_id' => 'required',
-        ]);
-
+        $this->check($request);
 
         $image = $request->file('image');
         $new_img_name = rand().time().'-'.strtolower(str_replace(' ', '-', $image->getClientOriginalName()));
@@ -82,6 +72,7 @@ class ProductController extends Controller
             'quantity' => $request->quantity,
             'category_id' => $request->category_id,
             'user_id' => Auth::id(),
+            'views' => ''
         ]);
 
         return redirect()->route('admin.products.index')->with('msg', 'Product Created Successfully')->with('type', 'success');
@@ -106,7 +97,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $categories = Product::select(['id', 'name'])->get();
+        $categories = Category::select(['id', 'name'])->get();
         $product = Product::findOrFail($id);
 
         return view('admin.products.edit', compact('categories', 'product'));
@@ -121,16 +112,10 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name' => 'required|min:3',
-            'image' => 'nullable|image|mimes:png,jpg,jpeg,svg',
-            'parent_id' => 'nullable|exists:products,id'
-        ]);
+        $this->check($request, 'update');
 
         $product = Product::findOrFail($id);
 
-        // NEW IM 88.PNG
-        // 56464684646465496-new-im-88.png
         $new_img_name = $product->image;
         if($request->hasFile('image')) {
             $this->deleteImage($product->image);
@@ -142,7 +127,26 @@ class ProductController extends Controller
         $data = $request->all();
         $data['image'] = $new_img_name;
 
-        $product->update($data);
+        $name = [
+            'en' => $request->name_en,
+            'ar' => $request->name_ar
+        ];
+
+        $description = [
+            'en' => $request->description_en,
+            'ar' => $request->description_ar
+        ];
+
+        $product->update([
+            'name' => json_encode($name, JSON_UNESCAPED_UNICODE) ,
+            'image' => $new_img_name,
+            'description' => json_encode($description, JSON_UNESCAPED_UNICODE) ,
+            'price' => $request->price,
+            'sale_price' => $request->sale_price,
+            'quantity' => $request->quantity,
+            'category_id' => $request->category_id,
+        ]);
+
 
         return redirect()->route('admin.products.index')->with('msg', 'Product Updated Successfully')->with('type', 'info');
     }
@@ -158,8 +162,6 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
 
         $this->deleteImage($product->image);
-
-        Product::where('parent_id', $product->id)->update(['parent_id' => null]);
 
         $product->delete();
 
@@ -192,6 +194,20 @@ class ProductController extends Controller
     {
         Product::withTrashed()->findOrFail($id)->forceDelete();
         return redirect()->back();
+    }
+
+    private function check($request, $type = 'store') {
+        $img = ($type == 'update') ? 'nullable' : 'required';
+        $request->validate([
+            'name_en' => 'required|min:3',
+            'name_ar' => 'required|min:3',
+            'image' => $img.'|image|mimes:png,jpg,jpeg,svg',
+            'description_en' => 'required',
+            'description_ar' => 'required',
+            'price' => 'required',
+            'quantity' => 'required',
+            'category_id' => 'required',
+        ]);
     }
 
 

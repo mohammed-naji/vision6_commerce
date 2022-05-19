@@ -5,8 +5,8 @@
 @section('content')
     <!-- Page Heading -->
     <div class="d-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 text-gray-800">Deleted Category</h1>
-        <a class="btn btn-outline-dark" href="{{ route('admin.categories.index') }}">All Categories</a>
+        <h1 class="h3 text-gray-800">Deleted Product</h1>
+        <a class="btn btn-outline-dark" href="{{ route('admin.products.index') }}">All Products</a>
     </div>
 
     @if (session('msg'))
@@ -29,16 +29,16 @@
             </tr>
         </thead>
         <tbody>
-            @forelse ($categories as $category)
+            @forelse ($products as $category)
                 <tr>
                     <td>{{ $category->id }}</td>
                     {{-- <td>{{ json_decode($category->name, true)[App::currentLocale()] }}</td> --}}
                     <td>{{ $category->trans_name }}</td>
                     <td>{{ $category->deleted_at->diffForHumans() }}</td>
                     <td>
-                        <a class="btn btn-sm btn-primary" href="{{ route('admin.categories.restore', $category->id) }}"><i class="fas fa-undo"></i></a>
+                        <a class="btn btn-sm btn-primary" href="{{ route('admin.products.restore', $category->id) }}"><i class="fas fa-undo"></i></a>
                         @if (Auth::user()->type == 'super-admin')
-                            <a onclick="return confirm('Are you sure?!')" class="btn btn-sm btn-danger" href="{{ route('admin.categories.forcedelete', $category->id) }}"><i class="fas fa-times"></i></a>
+                            <a onclick="return confirm('Are you sure?!')" class="btn btn-sm btn-danger" href="{{ route('admin.products.forcedelete', $category->id) }}"><i class="fas fa-times"></i></a>
                         @endif
 
 
@@ -53,5 +53,5 @@
         </tbody>
     </table>
 
-    {{ $categories->links() }}
+    {{ $products->links() }}
 @stop

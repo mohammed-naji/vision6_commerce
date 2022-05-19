@@ -26,7 +26,7 @@
     <li class="nav-item">
         <a class="nav-link {{ str_contains(request()->url(), 'categories') ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapseCategory"
             aria-expanded="true" aria-controls="collapseCategory">
-            <i class="fas fa-fw fa-cog"></i>
+            <i class="fas fa-fw fa-tags"></i>
             <span>{{ __('site.Categories') }}</span>
         </a>
         <div id="collapseCategory" class="collapse {{ str_contains(request()->url(), 'categories') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -41,7 +41,7 @@
     <li class="nav-item">
         <a class="nav-link {{ str_contains(request()->url(), 'products') ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapseProduct"
             aria-expanded="true" aria-controls="collapseProduct">
-            <i class="fas fa-fw fa-cog"></i>
+            <i class="fas fa-fw fa-heart"></i>
             <span>{{ __('site.Products') }}</span>
         </a>
         <div id="collapseProduct" class="collapse {{ str_contains(request()->url(), 'products') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -49,6 +49,21 @@
                 <a class="collapse-item {{ request()->routeIs('admin.products.index') ? 'active' : '' }}" href="{{ route('admin.products.index') }}">{{ __('site.All Products') }}</a>
                 <a class="collapse-item {{ request()->routeIs('admin.products.create') ? 'active' : '' }}" href="{{ route('admin.products.create') }}">{{ __('site.Add New') }}</a>
                 <a class="collapse-item {{ request()->routeIs('admin.products.trash') ? 'active' : '' }}" href="{{ route('admin.products.trash') }}">Trash</a>
+            </div>
+        </div>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link {{ str_contains(request()->url(), 'coupons') ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapseProduct"
+            aria-expanded="true" aria-controls="collapseProduct">
+            <i class="fas fa-fw fa-percent"></i>
+            <span>Coupons</span>
+        </a>
+        <div id="collapseProduct" class="collapse {{ str_contains(request()->url(), 'coupons') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item {{ request()->routeIs('admin.coupons.index') ? 'active' : '' }}" href="{{ route('admin.coupons.index') }}">All Coupons</a>
+                <a class="collapse-item {{ request()->routeIs('admin.coupons.create') ? 'active' : '' }}" href="{{ route('admin.coupons.create') }}">{{ __('site.Add New') }}</a>
+                <a class="collapse-item {{ request()->routeIs('admin.coupons.trash') ? 'active' : '' }}" href="{{ route('admin.coupons.trash') }}">Trash</a>
             </div>
         </div>
     </li>
