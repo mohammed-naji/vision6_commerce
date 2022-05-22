@@ -72,7 +72,7 @@ svg {
         </g>
       </svg>
 <h1>You are not allowed to enter here</h1>
-<h2>Go <a href="{{ route('web.index') }}">Home!</a></h2>
+<h2>Go <a href="{{ route('site.index') }}">Home!</a></h2>
 
 <script>
     var root = document.documentElement;

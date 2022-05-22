@@ -18,17 +18,21 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function getPriceAttribute($value)
+    public function getFinalPriceAttribute()
     {
         if($this->sale_price) {
             return $this->sale_price;
         }
 
-        return $value;
+        return $this->price;
     }
 
     public function setViewsAttribute() {
         return $this->attributes['views'] = 100;
     }
 
+    public function getUrlAttribute()
+    {
+        return asset('uploads/images/products/'.$this->image);
+    }
 }

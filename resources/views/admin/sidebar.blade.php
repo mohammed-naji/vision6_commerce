@@ -2,7 +2,7 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('web.index') }}">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('site.index') }}">
         <div class="sidebar-brand-icon">
             <i class="fas fa-shopping-cart"></i>
         </div>
@@ -54,12 +54,12 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link {{ str_contains(request()->url(), 'coupons') ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapseProduct"
-            aria-expanded="true" aria-controls="collapseProduct">
+        <a class="nav-link {{ str_contains(request()->url(), 'coupons') ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapseCoupon"
+            aria-expanded="true" aria-controls="collapseCoupon">
             <i class="fas fa-fw fa-percent"></i>
             <span>Coupons</span>
         </a>
-        <div id="collapseProduct" class="collapse {{ str_contains(request()->url(), 'coupons') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapseCoupon" class="collapse {{ str_contains(request()->url(), 'coupons') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item {{ request()->routeIs('admin.coupons.index') ? 'active' : '' }}" href="{{ route('admin.coupons.index') }}">All Coupons</a>
                 <a class="collapse-item {{ request()->routeIs('admin.coupons.create') ? 'active' : '' }}" href="{{ route('admin.coupons.create') }}">{{ __('site.Add New') }}</a>

@@ -1,5 +1,9 @@
 @extends('site.master')
 
+@section('styles')
+<link rel="stylesheet" href="{{ asset('siteassets/css/slider.css') }}">
+@stop
+
 @section('content')
 
 <div class="header-services">

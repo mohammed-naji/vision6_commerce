@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Category;
 use Illuminate\Support\Facades\File;
 
 class CategoryController extends Controller
@@ -65,6 +66,7 @@ class CategoryController extends Controller
         ];
         Category::create([
             'name' => json_encode($name, JSON_UNESCAPED_UNICODE) ,
+            'slug' => Str::slug($request->name_en),
             'image' => $new_img_name,
             'parent_id' => $request->parent_id,
         ]);

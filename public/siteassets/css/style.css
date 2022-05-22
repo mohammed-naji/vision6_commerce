@@ -2855,7 +2855,8 @@ textarea.form-control {
       display: inline-block;
       margin-right: 15px;
       text-align: center; }
-      .ps-pagination .pagination li > a {
+      .ps-pagination .pagination li > a,
+      .ps-pagination .pagination li > span {
         padding: 0 17px;
         position: relative;
         display: inline-block;
@@ -2870,7 +2871,8 @@ textarea.form-control {
         border-radius: 0;
         border: none;
         background-color: transparent !important; }
-        .ps-pagination .pagination li > a:before, .ps-pagination .pagination li > a:after {
+        .ps-pagination .pagination li > a:before, .ps-pagination .pagination li > a:after,
+        .ps-pagination .pagination li > span:before, .ps-pagination .pagination li > span:after  {
           content: '';
           position: absolute;
           top: 50%;
@@ -2888,27 +2890,33 @@ textarea.form-control {
           -webkit-transition: all 0.4s ease;
           -moz-transition: all 0.4s ease;
           transition: all 0.4s ease; }
-        .ps-pagination .pagination li > a:before {
+        .ps-pagination .pagination li > a:before,
+        .ps-pagination .pagination li > span:before  {
           width: 50px;
           height: 50px;
           background-color: #e4e4e4; }
-        .ps-pagination .pagination li > a:after {
+        .ps-pagination .pagination li > a:after,
+        .ps-pagination .pagination li > span:after {
           width: 45px;
           height: 45px;
           background-color: #2AC37D;
           z-index: -1;
           visibility: hidden;
           opacity: 0; }
-        .ps-pagination .pagination li > a:hover {
+        .ps-pagination .pagination li > a:hover,
+        .ps-pagination .pagination li > span:hover {
           color: #fff; }
-          .ps-pagination .pagination li > a:hover:after {
+          .ps-pagination .pagination li > a:hover:after,
+          .ps-pagination .pagination li > span:hover:after {
             visibility: visible;
             opacity: 1; }
       .ps-pagination .pagination li.active {
         border: none; }
-        .ps-pagination .pagination li.active a {
+        .ps-pagination .pagination li.active a,
+        .ps-pagination .pagination li.active span {
           color: #fff; }
-          .ps-pagination .pagination li.active a:after {
+          .ps-pagination .pagination li.active a:after,
+          .ps-pagination .pagination li.active span:after {
             visibility: visible;
             opacity: 1; }
   @media (max-width: 479px) {

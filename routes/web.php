@@ -37,6 +37,11 @@ Route::prefix(LaravelLocalization::setLocale())->group(function() {
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-    Route::get('/', [SiteController::class, 'index'])->name('web.index');
+
+    // Main Website Routes
+    Route::get('/', [SiteController::class, 'index'])->name('site.index');
+    Route::get('/contact', [SiteController::class, 'contact'])->name('site.contact');
+    Route::get('category/{slug}', [SiteController::class, 'category'])->name('site.category');
+    Route::get('product/{slug}', [SiteController::class, 'product'])->name('site.product');
 
 });
