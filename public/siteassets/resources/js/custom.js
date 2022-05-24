@@ -564,32 +564,6 @@
         }
     }
 
-    function stickyWidget() {
-        // on scroll move the sidebar
-        var widget = $('.ps-sticky.desktop');
-
-        if (widget.length > 0 && $('.ps-sidebar').length > 0) {
-            var sidebarEnd = $('.ps-sidebar').offset().top + $('.ps-sidebar').height();
-            var stickyHeight = widget.height(),
-                sidebarTop = widget.offset().top;
-        }
-        $(window).scroll(function() {
-            if (widget.length > 0) {
-                var scrollTop = $(window).scrollTop();
-                if (sidebarTop < scrollTop) {
-                    widget.css('top', scrollTop - sidebarTop + 100);
-                    if (scrollTop >= sidebarEnd) {
-                        widget.css('top', sidebarEnd - sidebarTop - 120);
-                    }
-                }
-
-                else {
-                    widget.css('top', '0');
-                }
-            }
-        });
-    }
-
     $(document).ready(function() {
         backgroundImage();
         parallax();
@@ -610,8 +584,6 @@
         zoomInit();
         magnificPopup();
         productVaritantsNormal();
-        // stickyWidget();
-        // revolution();
         filterSlider();
     });
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\SiteController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -43,5 +44,10 @@ Route::prefix(LaravelLocalization::setLocale())->group(function() {
     Route::get('/contact', [SiteController::class, 'contact'])->name('site.contact');
     Route::get('category/{slug}', [SiteController::class, 'category'])->name('site.category');
     Route::get('product/{slug}', [SiteController::class, 'product'])->name('site.product');
+
+    Route::controller(CartController::class)->name('site.')->middleware('auth')->group(function() {
+        Route::get('cart', 'cart')->name('cart');
+        Route::post('add-cart', 'add_cart')->name('add_cart');
+    });
 
 });

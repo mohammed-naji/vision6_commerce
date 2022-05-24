@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('product_id');
             $table->foreignId('user_id');
             $table->double('price');
-            $table->integer('quantity')->default(1);
+            $table->integer('quantity')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

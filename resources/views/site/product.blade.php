@@ -25,6 +25,11 @@
 
             </div>
             <div class="ps-product__info">
+                @if (session('msg'))
+                    <div class="alert alert-success">
+                        {{ session('msg') }}
+                    </div>
+                @endif
               <div class="ps-product__rating">
                 <select class="ps-rating">
                   <option value="1">1</option>
@@ -42,7 +47,19 @@
                 <p>The Nike Free RN 2017 Men's Running Sky weighs less than previous versions and features an updated knit material…</p>
               </div>
 
-              <div class="ps-product__shopping"><a class="ps-btn mb-10" href="cart.html">Add to cart<i class="ps-icon-next"></i></a>
+              <div class="ps-product__shopping">
+                <form action="{{ route('site.add_cart') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                    {{-- <input type="hidden" name="price" value="{{ $product->final_price }}"> --}}
+
+                    <label for="quantity">Quantity</label>
+                    <input type="number" name="quantity" id="quantity" class="form-control" value="1" min="1" max="{{ $product->quantity }}">
+                    <br>
+                    <button class="ps-btn mb-10">Add to cart<i class="ps-icon-next"></i></button>
+                </form>
+                {{-- <a class="ps-btn mb-10" href="cart.html">Add to cart<i class="ps-icon-next"></i></a> --}}
+
                 <div class="ps-product__actions"><a class="mr-10" href="whishlist.html"><i class="ps-icon-heart"></i></a><a href="compare.html"><i class="ps-icon-share"></i></a></div>
               </div>
             </div>
@@ -55,8 +72,7 @@
             </div>
             <div class="tab-content mb-60">
               <div class="tab-pane active" role="tabpanel" id="tab_01">
-                <p>Caramels tootsie roll carrot cake sugar plum. Sweet roll jelly bear claw liquorice. Gingerbread lollipop dragée cake. Pie topping jelly-o. Fruitcake dragée candy canes tootsie roll. Pastry jelly-o cupcake. Bonbon brownie soufflé muffin.</p>
-                <p>Sweet roll soufflé oat cake apple pie croissant. Pie gummi bears jujubes cake lemon drops gummi bears croissant macaroon pie. Fruitcake tootsie roll chocolate cake Carrot cake cake bear claw jujubes topping cake apple pie. Jujubes gummi bears soufflé candy canes topping gummi bears cake soufflé cake. Cotton candy soufflé sugar plum pastry sweet roll..</p>
+                {!! $product->trans_description !!}
               </div>
               <div class="tab-pane" role="tabpanel" id="tab_02">
                 <p class="mb-20">1 review for <strong>Shoes Air Jordan</strong></p>
