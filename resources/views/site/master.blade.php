@@ -73,7 +73,7 @@ use App\Models\Category;
                         <p>460 West 34th Street, 15th floor, New York - Hotline: 804-377-3580 - 804-399-3580</p>
                     </div>
                     <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12 ">
-                        <div class="header__actions"><a href="#">Login & Regiser</a>
+                        <div class="header__actions"><a href="{{ route('login') }}">Login & Regiser</a>
                             <div class="btn-group ps-dropdown"><a class="dropdown-toggle" href="#"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">USD<i
                                         class="fa fa-angle-down"></i></a>
@@ -137,6 +137,7 @@ use App\Models\Category;
                     </form>
 
 
+                    @auth
                     <div class="ps-cart">
                         <a class="ps-cart__toggle" href="#"><span><i>{{ Auth::user()->carts->count() }}</i></span><i
                                 class="ps-icon-shopping-cart"></i></a>
@@ -151,7 +152,7 @@ use App\Models\Category;
                                     $items += $cart->quantity;
                                     $total += $cart->quantity * $cart->price;
                                 @endphp
-                                <div class="ps-cart-item"><a class="ps-cart-item__close" href="#"></a>
+                                <div class="ps-cart-item"><a class="ps-cart-item__close" href="{{ route('site.remove_cart', $cart->id) }}"></a>
                                     <div class="ps-cart-item__thumbnail"><a href="{{ route('site.product', $cart->product->slug) }}"></a><img
                                             src="{{ $cart->product->url }}" alt=""></div>
                                     <div class="ps-cart-item__content"><a class="ps-cart-item__title"
@@ -169,6 +170,7 @@ use App\Models\Category;
                             <div class="ps-cart__footer"><a class="ps-btn" href="{{ route('site.cart') }}">Check out<i class="ps-icon-arrow-left"></i></a></div>
                         </div>
                     </div>
+                    @endauth
                     <div class="menu-toggle"><span></span></div>
                 </div>
             </div>

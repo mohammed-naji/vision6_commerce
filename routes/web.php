@@ -48,6 +48,12 @@ Route::prefix(LaravelLocalization::setLocale())->group(function() {
     Route::controller(CartController::class)->name('site.')->middleware('auth')->group(function() {
         Route::get('cart', 'cart')->name('cart');
         Route::post('add-cart', 'add_cart')->name('add_cart');
+        Route::get('remove-cart/{id}', 'remove_cart')->name('remove_cart');
+        Route::post('update-cart', 'update_cart')->name('update_cart');
     });
 
 });
+
+Route::get('send-notification', [SiteController::class, 'send_notification'])->name('send_notification');
+Route::get('notification', [SiteController::class, 'notification'])->name('notification');
+Route::get('notification/{id}', [SiteController::class, 'read_notification'])->name('read_notification');

@@ -53,4 +53,23 @@ class CartController extends Controller
         $carts = Auth::user()->carts;
         return view('site.cart', compact('carts'));
     }
+
+    public function remove_cart($id)
+    {
+        Cart::destroy($id);
+
+        return redirect()->back()->with('msg', 'Cart removed');
+    }
+
+    public function update_cart(Request $request)
+    {
+        // return $request->all();
+        foreach($request->qty as $id => $value) {
+            Cart::find($id)->update(['quantity' => $value]);
+        }
+
+        $carts = Auth::user()->carts;
+
+        return view('site.cart-items', compact('carts'))->render();
+    }
 }

@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\User;
+use App\Notifications\TestNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class SiteController extends Controller
 {
@@ -26,5 +29,28 @@ class SiteController extends Controller
         $product = Product::where('slug', $slug)->first();
 
         return view('site.product', compact('product'));
+    }
+
+    public function send_notification()
+    {
+        $user = User::find(3);
+
+        $user->notify(new TestNotification());
+
+        return 'Done';
+    }
+
+    public function notification()
+    {
+        $user = User::find(3);
+
+        return view('site.notifications', compact('user'));
+    }
+
+    public function read_notification($id)
+    {
+        $user = User::find(3)->notifications->find($id)->markAsRead();
+
+        return redirect()->back();
     }
 }
