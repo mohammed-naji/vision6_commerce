@@ -50,6 +50,8 @@ Route::prefix(LaravelLocalization::setLocale())->group(function() {
         Route::post('add-cart', 'add_cart')->name('add_cart');
         Route::get('remove-cart/{id}', 'remove_cart')->name('remove_cart');
         Route::post('update-cart', 'update_cart')->name('update_cart');
+        Route::get('checkout', 'checkout')->name('checkout');
+        Route::get('thanks', 'thanks')->name('thanks');
     });
 
 });

@@ -566,7 +566,7 @@
 
     function revolution() {
         if ($("#home-banner").revolution == undefined) {
-            revslider_showDoubleJqueryError("#rev_slider_1059_1");
+            //revslider_showDoubleJqueryError("#rev_slider_1059_1");
         }
         else {
             $("#home-banner").show().revolution({
@@ -691,7 +691,7 @@
         magnificPopup();
         productVaritantsNormal();
         // stickyWidget();
-        revolution();
+        // revolution();
         filterSlider();
     });
 

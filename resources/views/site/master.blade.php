@@ -57,6 +57,7 @@ use App\Models\Category;
         }
 
     </style>
+
     @yield('styles')
 </head>
 <!--[if IE 7]><body class="ie7 lt-ie8 lt-ie9 lt-ie10"><![endif]-->
