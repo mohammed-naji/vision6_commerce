@@ -30,6 +30,8 @@ Route::prefix(LaravelLocalization::setLocale())->group(function() {
         Route::get('coupons/restore/{id}', [CouponController::class, 'restore'])->name('coupons.restore');
         Route::get('coupons/forcedelete/{id}', [CouponController::class, 'forcedelete'])->name('coupons.forcedelete');
         Route::resource('coupons', CouponController::class);
+
+        Route::get('order/{id}', [AdminController::class, 'order'])->name('order');
     });
 
     Route::view('not-allowed', 'not-allowed')->name('not-allowed');
@@ -59,3 +61,5 @@ Route::prefix(LaravelLocalization::setLocale())->group(function() {
 Route::get('send-notification', [SiteController::class, 'send_notification'])->name('send_notification');
 Route::get('notification', [SiteController::class, 'notification'])->name('notification');
 Route::get('notification/{id}', [SiteController::class, 'read_notification'])->name('read_notification');
+
+Route::get('posts-api', [SiteController::class, 'posts_api']);

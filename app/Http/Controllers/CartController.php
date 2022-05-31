@@ -8,6 +8,7 @@ use App\Models\OrderItem;
 use App\Models\Payment;
 use App\Models\Product;
 use App\Models\User;
+use App\Notifications\NewOrderNotification;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -192,6 +193,10 @@ class CartController extends Controller
 
                 throw $e->getMessage();
             }
+
+            // Send Notification to admin
+            $admin = User::where('type', 'super-admin')->first();
+            $admin->notify(new NewOrderNotification($order));
 
             return view('site.success');
 

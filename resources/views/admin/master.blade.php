@@ -20,6 +20,8 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('adminassets/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
     @if (App::currentLocale() == 'ar')
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Almarai&display=swap');
@@ -263,6 +265,12 @@
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('adminassets/js/sb-admin-2.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.0.2/tinymce.min.js" integrity="sha512-Cwez4r594AFwCqWzXklkW90mGiJCKJBhcFb8GsWWtb0coKuR9uv1ozODWidI/8Lr9iKunYaXLPf6VJtL3rXzyQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <script>
+        var userId = '{{ Auth::id() }}'
+    </script>
+    <script src="{{ asset('js/app.js') }}"></script>
 
     <script>
         tinymce.init({
