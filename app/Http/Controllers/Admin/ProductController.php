@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Gate;
 
 class ProductController extends Controller
 {
@@ -19,6 +20,8 @@ class ProductController extends Controller
      */
     public function index()
     {
+        Gate::authorize('products.show');
+
         $products = Product::orderByDesc('id')->paginate(10);
 
         return view('admin.products.index', compact('products'));
@@ -99,6 +102,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
+        Gate::authorize('products.edit');
         $categories = Category::select(['id', 'name'])->get();
         $product = Product::findOrFail($id);
 
